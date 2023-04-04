@@ -28,6 +28,7 @@ fs.readFile("registration.html", (err, registration) => {
 http
   .createServer((request, response) => {
     let url = request.url;
+    console.log("URL: ", url);
     response.writeHeader(200, { "Content-Type": "text/html" });
     switch (url) {
       case "/project":
@@ -45,3 +46,4 @@ http
     }
   })
   .listen(args["port"]);
+  console.log(`Server running on port ${args["port"]}`)
