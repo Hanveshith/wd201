@@ -39,17 +39,15 @@ const todoList = () => {
     }
   
     const toDisplayableList = (list) => {
-      let c = "";
-      list.forEach((ele)=>{
-        if(ele.completed == true){
-            c+=("['X'] ");
-        }
-        else{
-            c+=("[ ] ");
-        }
-        c=c+ele.title+" "+ele.dueDate+"\n"
-    })
-    return (c);
+      y = list
+        .map((i) => {
+          const isCompelete = i.completed ? "[x]" : "[ ]";
+          const display = i.dueDate == today ? "" : i.dueDate;
+          return `${isCompelete} ${i.title.trim()} ${display.trim()}`;
+        })
+        .join("\n");
+      return y;
+
     }
   
     return {
