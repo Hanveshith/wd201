@@ -15,7 +15,7 @@ describe("Todolist Test Suite", () => {
   };
 
   var dateToday = new Date();
-  //const today = formattedDate(dateToday);
+
   const yesterday = formattedDate(
     new Date(new Date().setDate(dateToday.getDate() - 1))
   );
