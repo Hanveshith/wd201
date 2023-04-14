@@ -11,10 +11,6 @@ module.exports = (sequelize, DataTypes) => {
       return await Todo.create(params);
     }
 
-    displayTodoItems() {
-      return `${this.id}. ${this.title} - ${this.dueDate}`;
-    }
-
     static async showList() {
       console.log("My Todo list \n");
 
