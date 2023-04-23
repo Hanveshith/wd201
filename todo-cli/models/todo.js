@@ -23,13 +23,13 @@ module.exports = (sequelize, DataTypes) => {
 
       console.log("Due Today");
       // FILL IN HERE
-      const dt = await this.overdue();
+      const dt = await this.dueToday();
       const dtd = dt.map((t) => t.displayableString());
       console.log(dtd.join("\n").trim());
       console.log("\n");
 
       console.log("Due Later");
-      const dl = await this.overdue();
+      const dl = await this.dueLater();
       const dlt = dl.map((t) => t.displayableString());
       console.log(dlt.join("\n").trim());
       // FILL IN HERE
