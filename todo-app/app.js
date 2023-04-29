@@ -4,16 +4,20 @@ const { Todo } = require("./models");
 const bodypaser = require("body-parser");
 app.use(bodypaser.json());
 const path = require("path");
-const e = require("express");
+
 //set EJS as view engine
 app.set("view engine","ejs");
 
 app.get("/",async (request,response) => {
   const allTodos = await Todo.getTodos();
+  const overdueTodos = await Todo.getoverdueTodos();
+  const dueTodayTodos = await Todo.getdueTodayTodos();
+  const dueLaterTodos = await Todo.getdueLaterTodos();
+
   if(request.accepts("html")){
-    response.render('index',{allTodos});
+    response.render('index',{allTodos,overdueTodos,dueTodayTodos,dueLaterTodos});
   }else{
-    response.json({allTodos});
+    response.json({allTodos,overdueTodos,dueTodayTodos,dueLaterTodos});
   }
   
 });
