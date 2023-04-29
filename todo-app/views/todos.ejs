@@ -1,8 +1,10 @@
-<% for(var i=0;i < allTodos.length;i++){ %>
+<table>
     <tr>
-        <td>
-            <%= allTodos[i].title %>
-                <%= allTodos[i].dueDate %>
-        </td>
+      <th>ID</th> <th>Title</th> <th>Due Date</th>
     </tr>
-<% } %>
+    <% for (let todos of allTodos) { %>
+    <tr>
+      <td><%= todos.id %></td> <td><%= todos.title %></td> <td><%= todos.dueDate %></td>
+    </tr>
+    <% } %>
+</table>
