@@ -1,7 +1,7 @@
-body{
-    /* color: red; */
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+body {
+  /* color: red; */
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
-.TodoItem:hover .trash-icon{
-    display: block;
+.TodoItem:hover .trash-icon {
+  display: block;
 }
