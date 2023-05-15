@@ -23,8 +23,8 @@ module.exports = (sequelize, DataTypes) => {
       //   return this.update({ completed: false });
       // else{
       //   return this.update({ completed: true });}
-      // // const status = !completed;
-      return this.update({completed});
+      const status = !completed;
+      return this.update({completed: status});
     }
 
     static async remove(id) {
@@ -42,10 +42,9 @@ module.exports = (sequelize, DataTypes) => {
           dueDate: {
             [Op.lt]: date,
           },
-          completed: {
-            [Op.eq]: false,
-          },
+          completed: false,
         },
+        order: [["id", "ASC"]],
       });
     }
     static getdueTodayTodos() {
@@ -55,10 +54,9 @@ module.exports = (sequelize, DataTypes) => {
           dueDate: {
             [Op.eq]: date,
           },
-          completed: {
-            [Op.eq]: false,
-          },
+          completed: false,
         },
+        order: [["id", "ASC"]],
       });
     }
     static getdueLaterTodos() {
@@ -68,10 +66,9 @@ module.exports = (sequelize, DataTypes) => {
           dueDate: {
             [Op.gt]: date,
           },
-          completed: {
-            [Op.eq]: false,
-          },
+          completed: false,
         },
+        order: [["id", "ASC"]],
       });
     }
     static getCompletedTodos() {

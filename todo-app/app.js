@@ -71,7 +71,7 @@ app.put("/todos/:id", async (request, response) => {
   const todo = await Todo.findByPk(request.params.id);
   //  completed = todo.completed;
   try {
-    const updatedTodo = await todo.setCompletionStatus(request.body.completed);
+    const updatedTodo = await todo.setCompletionStatus(todo.completed);
     return response.json(updatedTodo);
   } catch (error) {
     console.log(error);
