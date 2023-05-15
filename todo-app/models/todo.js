@@ -23,8 +23,8 @@ module.exports = (sequelize, DataTypes) => {
       //   return this.update({ completed: false });
       // else{
       //   return this.update({ completed: true });}
-      const status = !completed;
-      return this.update({completed: status});
+      // // const status = !completed;
+      return this.update({completed});
     }
 
     static async remove(id) {
