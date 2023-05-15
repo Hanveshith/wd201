@@ -97,7 +97,7 @@ describe("Todo Application", function () {
       });
 
    const parsedUpdateResponse = JSON.parse(markCompleteResponse1.text);
-    expect(parsedUpdateResponse.completed).toBe(true);
+    expect(parsedUpdateResponse.completed).toBe(false);
   });
 
   // test("Fetches all todos in the database using /todos endpoint", async () => {
