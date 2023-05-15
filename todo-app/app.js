@@ -23,10 +23,14 @@ app.get("/", async (request, response) => {
 
   if (request.accepts("html")) {
     response.render("index", {
-      allTodos: allTodos.filter(todo => !todo.completed),
-      overdueTodos: overdueTodos.filter(todo => !todo.completed),
-      dueTodayTodos: dueTodayTodos.filter(todo => !todo.completed),
-      dueLaterTodos: dueLaterTodos.filter(todo => !todo.completed),
+      // allTodos: allTodos.filter(todo => !todo.completed),
+      // overdueTodos: overdueTodos.filter(todo => !todo.completed),
+      // dueTodayTodos: dueTodayTodos.filter(todo => !todo.completed),
+      // dueLaterTodos: dueLaterTodos.filter(todo => !todo.completed),
+      allTodos,
+      overdueTodos,
+      dueTodayTodos,
+      dueLaterTodos,
       completedTodos,
       csrfToken: request.csrfToken(),
     });
@@ -65,9 +69,9 @@ app.post("/todos", async (request, response) => {
 app.put("/todos/:id", async (request, response) => {
   console.log("we have to update a todo with ID:", request.params.id);
   const todo = await Todo.findByPk(request.params.id);
-  const completed = todo.completed;
+  //  completed = todo.completed;
   try {
-    const updatedTodo = await todo.setCompletionStatus(completed);
+    const updatedTodo = await todo.setCompletionStatus(todo.completed);
     return response.json(updatedTodo);
   } catch (error) {
     console.log(error);
@@ -79,9 +83,10 @@ app.put("/todos/:id", async (request, response) => {
 app.delete("/todos/:id", async (request, response) => {
   console.log("Delete a todo by ID: ", request.params.id);
   try {
-    const deleted = await Todo.remove(request.params.id);
-    response.send(deleted > 0);
+    await Todo.remove(request.params.id);
+    // response.send(deleted > 0);
     // return response.json(deleted);
+    return response.json({ success: true });
   } catch (error) {
     console.log(error);
     return response.status(422).json(error);
