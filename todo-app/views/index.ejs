@@ -13,11 +13,12 @@
             .querySelector('meta[name="csrf-token"]')
             .getAttribute("content");
         // console.log(Token);
-        function UpdateTodo(id) {
+        function UpdateTodo(id,status) {
             fetch(`/todos/${id}`, {
                 method: "put",
                 headers: { "content-Type": "application/json",},
                 body: JSON.stringify({
+                    completed: status,
                     "_csrf": token
                 })
             })
@@ -52,6 +53,9 @@
     <div class="grid grid-cols-6">
         <div class="col-start-3 col-span-2">
             <%- include('header.ejs') %>
+            <p class="py-2">Welcome to the TO-DO Manager</p>
+            <p class="py-2">New here?<a class="text-green-600" href="/signup">Sign-Up Now</a></p>
+            <p class="py-2">Already have an account?<a class="text-green-600" href="/signup">Sign-in</a></p>
                 <form action="/todos" method="post">
                     <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
                     <div class="flex py-5 gap-2">
