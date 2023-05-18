@@ -159,6 +159,7 @@ app.post("/todos", connectEnsureLogin.ensureLoggedIn(), async (request, response
   console.log("creating a todo", request.body);
   console.log("essddsfse",request.user.id)
   try {
+<<<<<<< HEAD
     await Todo.addTodo({
       title: request.body.title,
       dueDate: request.body.dueDate,
@@ -167,6 +168,15 @@ app.post("/todos", connectEnsureLogin.ensureLoggedIn(), async (request, response
       // request.body
   });
     return response.redirect("/todos");
+=======
+    await Todo.addTodo(
+//       title: request.body.title,
+//       dueDate: request.body.dueDate,
+//       completed: false,
+      request.body
+    );
+    return response.redirect("/");
+>>>>>>> e0a45502d29c31042a7767f879e8da871ee9f676
   } catch (error) {
     console.log(error);
     return response.status(422).json(error);
