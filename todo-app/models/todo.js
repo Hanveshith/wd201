@@ -8,10 +8,13 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      Todo.belongsTo(models.User,{
+        foreignKey: 'userId'
+      })
       // define association here
     }
-    static addTodo({ title, dueDate }) {
-      return this.create({ title: title, dueDate: dueDate, completed: false });
+    static addTodo({ title, dueDate,userId }) {
+      return this.create({ title: title, dueDate: dueDate, completed: false,userId });
     }
 
     static getTodos() {
@@ -35,47 +38,51 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
-    static getoverdueTodos() {
+    static getoverdueTodos(userId) {
       const date = new Date();
       return this.findAll({
         where: {
           dueDate: {
             [Op.lt]: date,
           },
+          userId,
           completed: false,
         },
         order: [["id", "ASC"]],
       });
     }
-    static getdueTodayTodos() {
+    static getdueTodayTodos(userId) {
       const date = new Date();
       return this.findAll({
         where: {
           dueDate: {
             [Op.eq]: date,
           },
+          userId,
           completed: false,
         },
         order: [["id", "ASC"]],
       });
     }
-    static getdueLaterTodos() {
+    static getdueLaterTodos(userId) {
       const date = new Date();
       return this.findAll({
         where: {
           dueDate: {
             [Op.gt]: date,
           },
+          userId,
           completed: false,
         },
         order: [["id", "ASC"]],
       });
     }
-    static getCompletedTodos() {
+    static getCompletedTodos(userId) {
       return this.findAll({
         where: {
           completed :{
             [Op.eq]: true,
+            userId,
           },
         },
       });

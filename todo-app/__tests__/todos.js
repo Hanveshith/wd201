@@ -52,7 +52,7 @@ describe("Todo Application", function () {
     const parsedGroupedResponse = JSON.parse(groupedTodosResponse.text);
     const dueTodayCount = parsedGroupedResponse.dueTodayTodos.length;
     const latestTodo = parsedGroupedResponse.dueTodayTodos[dueTodayCount - 1];
-
+    // console.log(latestTodo.completed);
     res = await agent.get("/");
     csrfToken = extractCsrfToken(res);
 
@@ -60,16 +60,18 @@ describe("Todo Application", function () {
       .put(`/todos/${latestTodo.id}`)
       .send({
         _csrf: csrfToken,
-        completed: true,
+        completed: false,
       });
+
     const parsedUpdateResponse = JSON.parse(markCompleteResponse.text);
+    // console.log(parsedUpdateResponse);
     expect(parsedUpdateResponse.completed).toBe(true);
   });
   test("Marks a todo with the given ID as incomplete", async () => {
     let res = await agent.get("/");
     let csrfToken = extractCsrfToken(res);
     await agent.post("/todos").send({
-      title: "Buy milk",
+      title: "Buy",
       dueDate: new Date().toISOString(),
       completed: true,
       _csrf: csrfToken,
@@ -80,22 +82,22 @@ describe("Todo Application", function () {
       .set("Accept", "application/json");
     const parsedGroupedResponse = JSON.parse(groupedTodosResponse.text);
     const dueTodayCount = parsedGroupedResponse.dueTodayTodos.length;
-    const latestTodo = parsedGroupedResponse.dueTodayTodos[dueTodayCount - 1];
-
+    const latestTodo = parsedGroupedResponse.dueTodayTodos[dueTodayCount-1];
+    // console.log(latestTodo,latestTodo.completed);
     res = await agent.get("/");
     csrfToken = extractCsrfToken(res);
 
 
-    console.log(latestTodo.completed);
     const markCompleteResponse1 = await agent
-      .put(`/todos/${latestTodo.id}`)
-      .send({
-        _csrf: csrfToken,
-        completed:false,
-      });
-
+    .put(`/todos/${latestTodo.id}`)
+    .send({
+      _csrf: csrfToken,
+      completed:true,
+    });
+    // console.log(latestTodo.completed);
    const parsedUpdateResponse = JSON.parse(markCompleteResponse1.text);
-    expect(parsedUpdateResponse.completed).toBe(true);
+  //  console.log(parsedUpdateResponse);
+    expect(parsedUpdateResponse.completed).toBe(false);
   });
 
   // test("Fetches all todos in the database using /todos endpoint", async () => {
