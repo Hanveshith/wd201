@@ -8,86 +8,16 @@
     <meta name="csrf-token" content="<%= csrfToken %>" />
     <link href="./css/styles.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-<<<<<<< HEAD
-=======
-    <script>
-        var token = document
-            .querySelector('meta[name="csrf-token"]')
-            .getAttribute("content");
-        // console.log(Token);
-        function UpdateTodo(id,status) {
-            fetch(`/todos/${id}`, {
-                method: "put",
-                headers: { "content-Type": "application/json",},
-                body: JSON.stringify({
-                    completed: status,
-                    "_csrf": token
-                })
-            })
-                .then((res) => {
-                    if (res.ok) {
-                        window.location.reload();
-                    }
-                })
-                .catch((err) => console.log(err));
-        }
-
-        function DeleteTodo(id) {
-            fetch(`/todos/${id}`, {
-                method: "delete",
-                headers: { "content-Type": "application/json", },
-                body: JSON.stringify({
-                    "_csrf": token
-                })
-            })
-                .then((res) => {
-                    if (res.ok) {
-                        window.location.reload();
-                    }
-                })
-                .catch((err) => console.log(err));
-        }
-    </script>
->>>>>>> e0a45502d29c31042a7767f879e8da871ee9f676
-    <title>TodoList</title>
+    <title>SignUp</title>
 </head>
 
 <body>
     <div class="grid grid-cols-6">
         <div class="col-start-3 col-span-2">
             <%- include('header.ejs') %>
-<<<<<<< HEAD
             <p class="py-2">Welcome to the TO-DO Manager</p>
             <p class="py-2">New here?<a class="text-green-600" href="/signup">Sign-Up Now</a></p>
             <p class="py-2">Already have an account?<a class="text-green-600" href="/login">Sign-in</a></p>
-=======
-            
-                <form action="/todos" method="post">
-                    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-                    <div class="flex py-5 gap-2">
-                        <div class="flex-auto">
-                            <input class="border border-gray-300 text-gray-900 w-full rounded p-2 text-sm" name="title"
-                                type="text" placeholder="Enter Todo" required>
-                        </div>
-                        <div class="flex-auto">
-                            <input class="border border-gray-300 text-gray-900 w-full rounded p-2 text-sm leading-4"
-                                name="dueDate" type="date" required>
-                        </div>
-                        <div class="flex-none">
-                            <button class="bg-green-600 text-white px-5 py-1.5 rounded font-medium mr-2"
-                                type="submit">Add</button>
-                        </div>
-                    </div>
-                </form>
-
-                <%- include('todos.ejs',{ "todotype" : "Overdue" , "id" : "count-overdue" , "todos" : overdueTodos }) %>
-
-                <%- include('todos.ejs',{ "todotype" : "Due Today" , "id" : "count-due-today" , "todos" : dueTodayTodos }) %>
-
-                <%- include('todos.ejs',{ "todotype" : "Due Later" , "id" : "count-due-later" , "todos" : dueLaterTodos }) %>
-
-                <%- include('todos.ejs',{ "todotype" : "Completed Items" , "id" : "count-completed-items" , "todos" : completedTodos }) %>
->>>>>>> e0a45502d29c31042a7767f879e8da871ee9f676
         </div>
     </div>
 
