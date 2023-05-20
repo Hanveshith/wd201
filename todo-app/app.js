@@ -135,7 +135,7 @@ app.post("/users", async (request, response) => {
   console.log("Firstname ", request.body.firstname);
   const hashedpwd = await bcrypt.hash(request.body.password, saltRounds);
   console.log(hashedpwd);
-  if (request.body.firstname.length == 0) {
+  if (request.body.firstName.length == 0) {
     request.flash("error", "First Name cant be empty");
     return response.redirect("/signup");
   } else if (request.body.email.length == 0) {
@@ -147,7 +147,7 @@ app.post("/users", async (request, response) => {
   }
   try {
     const user = await User.create({
-      firstName: request.body.firstname,
+      firstName: request.body.firstName,
       lastName: request.body.lastname,
       email: request.body.email,
       password: hashedpwd,
