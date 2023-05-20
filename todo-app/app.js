@@ -112,6 +112,7 @@ app.get(
     const completedTodos = await Todo.getCompletedTodos(loggedInUser);
     if (request.accepts("html")) {
       response.render("todos", {
+        loggedInUser: request.user,
         overdueTodos,
         dueTodayTodos,
         dueLaterTodos,
@@ -120,6 +121,7 @@ app.get(
       });
     } else {
       response.json({
+        userId: loggedInUser,
         overdueTodos,
         dueTodayTodos,
         dueLaterTodos,
@@ -192,6 +194,14 @@ app.post(
   async (request, response) => {
     console.log("creating a todo", request.body);
     console.log("essddsfse", request.user.id);
+    if (request.body.title.trim().length === 0) {
+      request.flash("error", "Todo title cannot be empty");
+      return response.redirect("/todos");
+    }
+    if (request.body.dueDate.trim().length === 0) {
+      request.flash("error", "Todo due date cannot be empty");
+      return response.redirect("/todos");
+    }
     try {
       await Todo.addTodo({
         title: request.body.title,
