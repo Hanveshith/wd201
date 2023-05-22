@@ -67,7 +67,7 @@ passport.use(
           }
         })
         .catch((error) => {
-          return done(error);
+          return done(null, false, { message: "Invalid E-mail" });
         });
     }
   )
@@ -135,13 +135,14 @@ app.post("/users", async (request, response) => {
   console.log("Firstname ", request.body.firstname);
   const hashedpwd = await bcrypt.hash(request.body.password, saltRounds);
   console.log(hashedpwd);
+  const trimmedPassword = request.body.password.trim();
   if (request.body.firstName.length == 0) {
     request.flash("error", "First Name cant be empty");
     return response.redirect("/signup");
   } else if (request.body.email.length == 0) {
     request.flash("error", "Email cant be empty");
     return response.redirect("/signup");
-  } else if (request.body.password.length == 0) {
+  } else if (trimmedPassword.length == 0) {
     request.flash("error", "password cannot be empty");
     return response.redirect("/signup");
   }
@@ -161,6 +162,8 @@ app.post("/users", async (request, response) => {
     // response.redirect("/todos");
   } catch (error) {
     console.log(error);
+    request.flash("error", "Error! Email Already in use");
+    response.redirect("/signup");
   }
 });
 
