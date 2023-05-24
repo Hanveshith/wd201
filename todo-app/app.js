@@ -35,6 +35,8 @@ app.use(
     cookie: {
       maxAge: 24 * 60 * 60 * 1000,
     },
+    resave: true,
+    saveUninitialized: true,
   })
 );
 
@@ -89,6 +91,9 @@ passport.deserializeUser((id, done) => {
 });
 
 app.get("/signup", (request, response) => {
+  if (request.isAuthenticated()) {
+    return response.redirect("/todos");
+  }
   response.render("signup", {
     title: "signup",
     csrfToken: request.csrfToken(),
@@ -168,7 +173,10 @@ app.post("/users", async (request, response) => {
 });
 
 app.get("/login", (request, response) => {
-  response.render("login", { title: "login", csrfToken: request.csrfToken() });
+  if (request.isAuthenticated()) {
+    return response.redirect("/todos");
+  }
+  response.render("login", { title: "Login", csrfToken: request.csrfToken() });
 });
 
 app.post(

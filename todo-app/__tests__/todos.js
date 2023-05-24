@@ -150,11 +150,11 @@ describe("Todo Application", function () {
       .put(`/todos/${latestTodo1.id}`)
       .send({
         _csrf: csrfToken,
-        completed: false,
+        completed: true,
       });
 
     const parsedUpdateResponse1 = JSON.parse(markCompleteResponse.text);
-    expect(parsedUpdateResponse1.completed).toBe(true);
+    expect(parsedUpdateResponse1.completed).toBe(false);
   });
 
   // test("Fetches all todos in the database using /todos endpoint", async () => {
