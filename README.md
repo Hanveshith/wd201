@@ -11,8 +11,6 @@ This repository contains a collection of web development projects developed as p
   - [Todo App](#todo-app)
 - [Technologies Used](#technologies-used)
 - [Getting Started](#getting-started)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Projects
 
